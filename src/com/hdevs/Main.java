@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
+    private static final String CODES_FILE_NAME = "newcodes.txt";
     public  static String INPUT_FILE_NAME ="original.txt";
     public  final static String OUTPUT_ENCODED_FILE_NAME ="encoded.bin";
     public  final static String OUTPUT_DECODED_FILE_NAME ="decoded.txt";
@@ -22,15 +23,24 @@ public class Main {
         System.out.println("\n*................*\n");
         readFile();
         HuffmanTree huffmanTree=new HuffmanTree();
-        huffmanTree.buildTree();
+        long stE= System.nanoTime();
+        String codes=huffmanTree.buildTree();
+        long fiE= System.nanoTime();
         String encodedText=huffmanTree.printEncoded(file);
+        long stD= System.nanoTime();
         String decodedText=huffmanTree.printDecoded();
+        long fiD= System.nanoTime();
         writeFile(encodedText,OUTPUT_ENCODED_FILE_NAME);
+        writeFile(codes,CODES_FILE_NAME);
+        System.out.println("\n*................*\n");
         System.out.println("File Encoded Successfully!");
         System.out.println("\n*................*\n");
-
+        System.out.println("Execution time of encoding = "+ ((fiE - stE)/1000000F)+" millisecs");
+        System.out.println("\n*................*\n");
         writeFile(decodedText,OUTPUT_DECODED_FILE_NAME);
         System.out.println("File Decoded Successfully!");
+        System.out.println("\n*................*\n");
+        System.out.println("Execution time of decoding = "+ ((fiD - stD)/1000000F)+" millisecs");
         System.out.println("\n******************\n");
 
     }
@@ -58,8 +68,6 @@ public class Main {
         PrintWriter printWriter=new PrintWriter(fileWriter);
         printWriter.println(text);
         fileWriter.close();
-
-
     }
 
 

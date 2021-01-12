@@ -1,5 +1,6 @@
 package com.hdevs;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class HuffmanTree {
     }
 
 
-    public void buildTree(){
+    public String buildTree(){
         fillQueue();
         while(priorityQueue.size()!=1){
         Node left=priorityQueue.poll();
@@ -31,10 +32,17 @@ public class HuffmanTree {
 
          root=priorityQueue.peek();
         encode(root,"");
-
-        System.out.println("Huffman Codes are: " + encodedMap+"\n*................*\n");
-
-
+        StringBuilder codes=new StringBuilder();
+        System.out.println("* Character\t\t Code\t\t New Code\t\t\t\t");
+        codes.append("* Character\t\t Code\t\t New Code\t\t\t\t\n");
+        for (Map.Entry<Character, String> entry:encodedMap.entrySet()) {
+            String code= "* "+entry.getKey() + "\t\t\t\t"
+                    +"| "+Integer.toBinaryString((int)entry.getKey().charValue()) + "\t\t"
+                    +"| "+entry.getValue()+ "\t\t";
+            System.out.println(code);
+            codes.append(code).append("\n");
+        }
+return codes.toString();
     }
 
 
