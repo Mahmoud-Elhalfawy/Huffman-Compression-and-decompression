@@ -9,10 +9,15 @@ import java.util.PriorityQueue;
 public class HuffmanTree {
     PriorityQueue<Node> priorityQueue;
     public HashMap<Character,Integer> frequencies;
-    private Map<Character, String> encodedMap=new HashMap<>();
+
+    public void setEncodedMap(HashMap<Character, String> encodedMap) {
+        this.encodedMap = encodedMap;
+    }
+
+    private HashMap<Character, String> encodedMap=new HashMap<>();
     private StringBuilder encodedBuilder;
     private StringBuilder decodedBuilder=new StringBuilder();
-    private Node root;
+    public  Node root;
 
 
     public HuffmanTree(){
@@ -21,7 +26,7 @@ public class HuffmanTree {
     }
 
 
-    public String buildTree(){
+    public HashMap<Character,String> buildTree(){
         fillQueue();
         while(priorityQueue.size()!=1){
         Node left=priorityQueue.poll();
@@ -42,7 +47,8 @@ public class HuffmanTree {
             System.out.println(code);
             codes.append(code).append("\n");
         }
-return codes.toString();
+
+        return encodedMap;
     }
 
 
@@ -51,8 +57,11 @@ return codes.toString();
             priorityQueue.add(new Node(entry.getKey(),entry.getValue()));
     }
 
+    public void setEncodedBuilder(StringBuilder encodedBuilder) {
+        this.encodedBuilder = encodedBuilder;
+    }
 
-    public void encode(Node root,String binaryEq){
+    public void encode(Node root, String binaryEq){
 
             if (root == null) {
                 return;
